@@ -1,0 +1,130 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:RandomLineExtractor"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RandomLineExtractor.MainWindow"
+        x:DataType="local:MainWindow"
+        Title="ランダム行抽出ツール"
+        Width="650" Height="400"
+        MinWidth="600" MinHeight="350">
+
+  <Grid Margin="20">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    
+    <!-- 読み込みファイル選択 -->
+    <StackPanel Grid.Row="0" Margin="0,0,0,15">
+      <TextBlock Text="読み込みファイル:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="InputFileTextBox" 
+                 Text="{Binding InputFilePath}" 
+                 Watermark="読み込むtxtファイルを選択してください..."
+                 Grid.Column="0" Margin="0,0,10,0"/>
+        <Button Name="InputFileBrowseButton" 
+                Content="参照..." 
+                Grid.Column="1" 
+                Click="OnInputFileBrowseClick"
+                Padding="15,5"/>
+      </Grid>
+    </StackPanel>
+
+    <!-- 出力ファイル選択 -->
+    <StackPanel Grid.Row="1" Margin="0,0,0,15">
+      <TextBlock Text="出力ファイル:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="OutputFileTextBox" 
+                 Text="{Binding OutputFilePath}"
+                 Watermark="出力先のtxtファイルを指定してください..."
+                 Grid.Column="0" Margin="0,0,10,0"/>
+        <Button Name="OutputFileBrowseButton" 
+                Content="参照..." 
+                Grid.Column="1" 
+                Click="OnOutputFileBrowseClick"
+                Padding="15,5"/>
+      </Grid>
+    </StackPanel>
+
+    <!-- ランダム抽出数とオプション -->
+    <StackPanel Grid.Row="2" Margin="0,0,0,15">
+      <TextBlock Text="抽出設定:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="ランダム抽出数:" VerticalAlignment="Center" Grid.Column="0"/>
+        <NumericUpDown Name="RandomCountUpDown"
+                       Value="{Binding RandomCount}"
+                       Minimum="1" Maximum="10000"
+                       Grid.Column="1" Margin="10,0,20,0"
+                       Width="100"/>
+        
+        <CheckBox Name="IncludeDateTimeCheckBox"
+                  IsChecked="{Binding IncludeDateTime}"
+                  Content="出力ファイルに日時情報を含める"
+                  Grid.Column="2" VerticalAlignment="Center"/>
+      </Grid>
+    </StackPanel>
+
+    <!-- 実行ボタン -->
+    <Button Name="ExecuteButton" 
+            Grid.Row="3"
+            Content="ランダム抽出実行"
+            Click="OnExecuteClick"
+            HorizontalAlignment="Center"
+            Padding="30,10"
+            FontSize="14"
+            FontWeight="SemiBold"
+            Margin="0,0,0,20"/>
+
+    <!-- 空白スペース -->
+    <Border Grid.Row="4" Height="20"/>
+
+    <!-- ステータス表示 -->
+    <Border Grid.Row="6" 
+            Background="#F5F5F5" 
+            BorderBrush="#CCCCCC" 
+            BorderThickness="1"
+            CornerRadius="3"
+            Padding="10,8">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="ステータス:" 
+                   FontWeight="SemiBold" 
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Margin="0,0,10,0"/>
+        
+        <TextBlock Name="StatusTextBlock"
+                   Text="待機中..."
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Foreground="#333333"/>
+      </Grid>
+    </Border>
+  </Grid>
+</Window>

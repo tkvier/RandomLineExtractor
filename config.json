@@ -1,0 +1,6 @@
+{
+  "InputFilePath": "D:\\AI\\civi\\civitai-image-jsonからプロンプト抜き取る\\prompt_fot-NSFW.txt",
+  "OutputFilePath": "output.txt",
+  "RandomCount": 10,
+  "IncludeDateTime": true
+}
